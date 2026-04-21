@@ -62,13 +62,13 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { shareWithCookies } from "@/utils/helper/shareWithCookies";
 import { appConfiguration } from "@/utils/constant/appConfiguration";
 import { CgTemplate } from "react-icons/cg";
 import { useTheme } from "next-themes";
 import ThemeSwitcher from "../common/ThemeSwitcher";
-import { getUserInfo } from "@/utils/helper/userFromToken";
 import { useGetEnterpriseByIdQuery } from "@/redux/api/authentication/authApi";
+import { getUserInfo } from "@/utils/helper/userFromToken";
+import { shareWithCookies } from "@/utils/helper/shareWithCookies";
 
 interface EnterpriseSidebarProps {
   isOpen?: boolean;

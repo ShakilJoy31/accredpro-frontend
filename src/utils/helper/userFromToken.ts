@@ -1,6 +1,5 @@
 // utils/auth/userFromToken.ts
 import { jwtDecode } from "jwt-decode";
-import { shareWithCookies } from "../helper/shareWithCookies";
 import { appConfiguration } from "../constant/appConfiguration";
 
 // Define types for the token payload
@@ -197,6 +196,7 @@ export const handleAuthRedirect = (
 // Hook wrapper for React components
 import { useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { shareWithCookies } from "./shareWithCookies";
 
 export const useAuth = () => {
   const router = useRouter();
