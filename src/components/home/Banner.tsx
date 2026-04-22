@@ -7,11 +7,11 @@ import Heading from "../reusable-components/Heading";
 import Paragraph from "../reusable-components/Paragraph";
 import Button from "../reusable-components/Button";
 import { HiSparkles } from "react-icons/hi";
-import dotStar from '@/assets/Icons/Sparkles.svg'
+import dotStar from '@/assets/Icon/Sparkles.svg'
 import AnimatedText from "../reusable-components/AnimatedText";
 import { useRouter } from "next/navigation";
-import TechElementAnimated from "./TechElementAnimated";
 import ProgrammingAnimation from '../../utils/constant/sms-animation.json'
+import TechElementAnimated from "./TechElementAnimated";
 
 const Banner = () => {
     const router = useRouter();
