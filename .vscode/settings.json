@@ -1,0 +1,42 @@
+{
+  "editor.fontFamily": "'consolas'",
+  "editor.fontSize": 20,
+  "editor.formatOnSave": true,
+  "diffEditor.wordWrap": "on",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "javascript.preferences.quoteStyle": "single",
+  "prettier.singleQuote": true,
+  "prettier.jsxSingleQuote": true,
+  "emmet.showSuggestionsAsSnippets": true,
+  "emmet.preferences": {},
+  "emmet.useInlineCompletions": true,
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
+  "editor.wordWrap": "on",
+  "security.workspace.trust.untrustedFiles": "open",
+  "workbench.startupEditor": "none",
+  "prettier.trailingComma": "none",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "editor.inlineSuggest.suppressSuggestions": true,
+  "editor.quickSuggestions": {
+    "other": "on"
+  },
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "git.autofetch": true,
+  "git.openRepositoryInParentFolders": "never",
+  "workbench.editor.enablePreview": false,
+
+  "eslint.enable": true,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "window.confirmSaveUntitledWorkspace": false,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "cSpell.overviewRulerColor": "#4885bc",
+  "cSpell.textDecorationColor": "#4885bc",
+  "cSpell.textDecorationColorFlagged": "#4885bc"
+}

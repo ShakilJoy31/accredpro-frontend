@@ -1,8 +1,8 @@
-import Footer from "@/components/navigations/Footer";
-import PublicNav from "@/components/navigations/PublicNav";
+import Footer from '@/components/navigations/Footer';
+import PublicNav from '@/components/navigations/PublicNav';
 
 export default function MainLayout({
-  children,
+  children
 }: {
   children: React.ReactNode;
 }) {
@@ -10,7 +10,7 @@ export default function MainLayout({
     <>
       <PublicNav />
       <div>{children}</div>
-      <Footer></Footer>
+      <Footer />
     </>
   );
 }
