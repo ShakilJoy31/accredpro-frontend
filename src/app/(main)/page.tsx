@@ -1,5 +1,8 @@
+import AccreditationBodiesCarousel from '@/components/home/AccreditationBodiesCarousel';
+import AccreditationServices from '@/components/home/AccreditationServices';
 import Banner from '@/components/home/Banner';
 import CertificateVerifyWidget from '@/components/home/CertificateVerifyWidget';
+import StandardsWeCover from '@/components/home/StandardsWeCover';
 import StatsBar from '@/components/home/StatsBar';
 import { generateDynamicMetadata } from '@/metadata/generateMetadata';
 
@@ -38,6 +41,9 @@ export default function Home() {
       <Banner />
       <StatsBar />
       <CertificateVerifyWidget />
+      <AccreditationBodiesCarousel />
+      <AccreditationServices />
+      <StandardsWeCover />
     </div>
   );
 }
