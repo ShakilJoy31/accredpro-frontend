@@ -2,8 +2,10 @@ import AccreditationBodiesCarousel from '@/components/home/AccreditationBodiesCa
 import AccreditationServices from '@/components/home/AccreditationServices';
 import Banner from '@/components/home/Banner';
 import CertificateVerifyWidget from '@/components/home/CertificateVerifyWidget';
+import NewsFeed from '@/components/home/NewsFeed';
 import StandardsWeCover from '@/components/home/StandardsWeCover';
 import StatsBar from '@/components/home/StatsBar';
+import TrustSignals from '@/components/home/TrustSignals';
 import { generateDynamicMetadata } from '@/metadata/generateMetadata';
 
 export async function generateMetadata() {
@@ -44,6 +46,8 @@ export default function Home() {
       <AccreditationBodiesCarousel />
       <AccreditationServices />
       <StandardsWeCover />
+      <NewsFeed />
+      <TrustSignals />
     </div>
   );
 }
