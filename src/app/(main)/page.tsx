@@ -8,7 +8,7 @@ import { generateDynamicMetadata } from '@/metadata/generateMetadata';
 
 export async function generateMetadata() {
   return generateDynamicMetadata({
-    title: 'Linuxeon | Professional SMS & Bulk Messaging Platform',
+    title: 'Accredpro | Home',
     description:
       'Linuxeon is a cutting-edge SMS and bulk messaging platform that enables businesses to send transactional, promotional, and OTP messages globally. Reliable, scalable, and feature-rich messaging solutions.',
     keywords: [
