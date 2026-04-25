@@ -55,6 +55,9 @@ export default function EnterpriseLoginForm() {
     const [showPendingModal, setShowPendingModal] = useState(false);
     const [pendingAccountInfo, setPendingAccountInfo] = useState<PendingAccountInfo | null>(null);
 
+    // Moving dots state
+    const [dots, setDots] = useState<Array<{ id: number; left: string; top: string; size: number; duration: number; delay: number }>>([]);
+
     // API hook
     const [enterpriseLogin, { isLoading: loginLoading }] = useEnterpriseLoginMutation();
 
@@ -70,6 +73,25 @@ export default function EnterpriseLoginForm() {
         },
         mode: 'onChange',
     });
+
+    // Generate moving dots
+    useEffect(() => {
+        const generateDots = () => {
+            const newDots = [];
+            for (let i = 0; i < 30; i++) {
+                newDots.push({
+                    id: i,
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                    size: Math.random() * 6 + 2,
+                    duration: Math.random() * 10 + 8,
+                    delay: Math.random() * 5,
+                });
+            }
+            setDots(newDots);
+        };
+        generateDots();
+    }, []);
 
     // Background animation effect
     useEffect(() => {
@@ -130,10 +152,10 @@ export default function EnterpriseLoginForm() {
     // Don't render theme-dependent UI until mounted
     if (!mounted) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 via-amber-50 to-red-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black p-4">
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 via-amber-50 to-red-50 p-4">
                 <div className="animate-pulse">
-                    <div className="h-12 w-64 bg-gray-200 dark:bg-gray-700 rounded-lg mb-4" />
-                    <div className="h-96 w-96 bg-gray-100 dark:bg-gray-800 rounded-2xl" />
+                    <div className="h-12 w-64 bg-gray-200 rounded-lg mb-4" />
+                    <div className="h-96 w-96 bg-gray-100 rounded-2xl" />
                 </div>
             </div>
         );
@@ -142,13 +164,41 @@ export default function EnterpriseLoginForm() {
     return (
         <>
             <div className={cn(
-                "min-h-screen mt-16 flex items-center justify-center p-4 transition-colors duration-300",
+                "min-h-screen mt-16 flex items-center justify-center p-4 transition-colors duration-300 relative overflow-hidden",
                 "bg-gradient-to-br from-orange-50 via-amber-50 to-red-50",
-                "dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black"
             )}>
-                {/* Animated background elements */}
+                {/* Animated Moving White Dots */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                    {dots.map((dot) => (
+                        <motion.div
+                            key={dot.id}
+                            className="absolute rounded-full bg-black/40"
+                            style={{
+                                width: dot.size,
+                                height: dot.size,
+                                left: dot.left,
+                                top: dot.top,
+                            }}
+                            animate={{
+                                x: [0, Math.random() * 100 - 50, Math.random() * 100 - 50, 0],
+                                y: [0, Math.random() * 100 - 50, Math.random() * 100 - 50, 0],
+                                opacity: [0.4, 0.8, 0.4, 0.6, 0.4],
+                                scale: [1, 1.5, 1, 1.3, 1],
+                            }}
+                            transition={{
+                                duration: dot.duration,
+                                delay: dot.delay,
+                                repeat: Infinity,
+                                repeatType: "reverse",
+                                ease: "easeInOut",
+                            }}
+                        />
+                    ))}
+                </div>
+
+                {/* Animated background elements - Orange and White gradient orbs */}
                 <div className="fixed inset-0 overflow-hidden pointer-events-none">
-                    <div className="absolute -inset-2.5 opacity-30 dark:opacity-20">
+                    <div className="absolute -inset-2.5 opacity-30 ">
                         <div className={cn(
                             "absolute top-1/4 left-1/4 w-72 h-72 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob",
                             "bg-gradient-to-r from-orange-200 to-amber-200",
@@ -164,6 +214,18 @@ export default function EnterpriseLoginForm() {
                             "bg-gradient-to-r from-amber-200 to-yellow-200",
                             animateBg && "animate-pulse"
                         )} />
+
+                        {/* Additional White Orbs */}
+                        <div className={cn(
+                            "absolute top-1/2 right-1/3 w-96 h-96 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob animation-delay-3000",
+                            "bg-gradient-to-r from-white to-orange-100",
+                            animateBg && "animate-pulse"
+                        )} />
+                        <div className={cn(
+                            "absolute bottom-1/3 right-1/4 w-80 h-80 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob animation-delay-5000",
+                            "bg-gradient-to-r from-orange-100 to-white",
+                            animateBg && "animate-pulse"
+                        )} />
                     </div>
                 </div>
 
@@ -175,8 +237,7 @@ export default function EnterpriseLoginForm() {
                 >
                     <div className={cn(
                         "rounded-2xl shadow-2xl overflow-hidden backdrop-blur-xl transition-all duration-300",
-                        "bg-white/90 border border-orange-200/50",
-                        "dark:bg-gray-900/90 dark:border-gray-800"
+                        "bg-white/90 border border-orange-300/50",
                     )}>
                         {/* Header */}
                         <div className="p-8 pb-6">
@@ -191,12 +252,11 @@ export default function EnterpriseLoginForm() {
                                     <div className={cn(
                                         "absolute inset-0 rounded-full blur-lg opacity-75",
                                         "bg-gradient-to-r from-orange-400 to-red-500",
-                                        "dark:bg-gradient-to-r dark:from-orange-500 dark:to-red-600"
                                     )} />
                                     <div className={cn(
                                         "relative w-44 h-44 rounded-full flex items-center justify-center border-2 shadow-lg",
-                                        "bg-white border-orange-200",
-                                        "dark:bg-gray-900 dark:border-gray-700"
+                                        "bg-gradient-to-t from-orange-200 to-white border-orange-200",
+                                        "border-orange-700"
                                     )}>
                                         <Image
                                             src={fitInfotechLogo}
@@ -211,14 +271,12 @@ export default function EnterpriseLoginForm() {
                                     <h2 className={cn(
                                         "text-lg font-semibold mb-1",
                                         "text-gray-800",
-                                        "dark:text-gray-200"
                                     )}>
                                         Welcome Back!
                                     </h2>
                                     <p className={cn(
                                         "text-sm",
                                         "text-gray-600",
-                                        "dark:text-gray-400"
                                     )}>
                                         Sign in to your corporate training account
                                     </p>
@@ -235,10 +293,9 @@ export default function EnterpriseLoginForm() {
                                         className={cn(
                                             "mb-4 p-3 rounded-lg border",
                                             "bg-red-50/50 border-red-200",
-                                            "dark:bg-red-500/10 dark:border-red-500/20"
                                         )}
                                     >
-                                        <div className="flex items-center gap-2 text-red-600 dark:text-red-400">
+                                        <div className="flex items-center gap-2 text-red-600">
                                             <AlertCircle className="w-4 h-4" />
                                             <span className="text-sm">{errorMessage}</span>
                                         </div>
@@ -253,7 +310,6 @@ export default function EnterpriseLoginForm() {
                                     <label className={cn(
                                         "block text-sm font-medium mb-2",
                                         "text-gray-700",
-                                        "dark:text-gray-300"
                                     )}>
                                         Phone Number
                                     </label>
@@ -262,7 +318,6 @@ export default function EnterpriseLoginForm() {
                                             <Phone className={cn(
                                                 "w-5 transition-colors",
                                                 "text-gray-400 group-focus-within:text-orange-500",
-                                                "dark:text-gray-500 dark:group-focus-within:text-orange-400"
                                             )} />
                                         </div>
                                         <input
@@ -272,13 +327,12 @@ export default function EnterpriseLoginForm() {
                                             className={cn(
                                                 "block w-full pl-10 pr-3 py-3 rounded-lg placeholder-gray-500 focus:outline-none transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed",
                                                 "bg-white/70 border border-gray-300 text-gray-900 focus:ring-2 focus:ring-orange-500 focus:border-transparent",
-                                                "dark:bg-gray-800/70 dark:border-gray-700 dark:text-white dark:focus:ring-orange-500"
                                             )}
                                             placeholder="01712345678"
                                         />
                                     </div>
                                     {errors.phoneNo && (
-                                        <p className="mt-1 text-sm text-red-600 dark:text-red-400 flex items-center gap-1">
+                                        <p className="mt-1 text-sm text-red-600 flex items-center gap-1">
                                             <AlertCircle className="w-3 h-3" />
                                             {errors.phoneNo.message}
                                         </p>
@@ -290,7 +344,6 @@ export default function EnterpriseLoginForm() {
                                     <label className={cn(
                                         "block text-sm font-medium mb-2",
                                         "text-gray-700",
-                                        "dark:text-gray-300"
                                     )}>
                                         Password
                                     </label>
@@ -299,7 +352,6 @@ export default function EnterpriseLoginForm() {
                                             <Lock className={cn(
                                                 "w-5 transition-colors",
                                                 "text-gray-400 group-focus-within:text-orange-500",
-                                                "dark:text-gray-500 dark:group-focus-within:text-orange-400"
                                             )} />
                                         </div>
                                         <input
@@ -309,7 +361,6 @@ export default function EnterpriseLoginForm() {
                                             className={cn(
                                                 "block w-full pl-10 pr-10 py-3 rounded-lg placeholder-gray-500 focus:outline-none transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed",
                                                 "bg-white/70 border border-gray-300 text-gray-900 focus:ring-2 focus:ring-orange-500 focus:border-transparent",
-                                                "dark:bg-gray-800/70 dark:border-gray-700 dark:text-white dark:focus:ring-orange-500"
                                             )}
                                             placeholder="••••••••"
                                         />
@@ -319,14 +370,14 @@ export default function EnterpriseLoginForm() {
                                             className="absolute inset-y-0 right-0 pr-3 flex items-center"
                                         >
                                             {showPassword ? (
-                                                <EyeOff className="w-5 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300" />
+                                                <EyeOff className="w-5 text-gray-500 hover:text-gray-700" />
                                             ) : (
-                                                <Eye className="w-5 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300" />
+                                                <Eye className="w-5 text-gray-500 hover:text-gray-700" />
                                             )}
                                         </button>
                                     </div>
                                     {errors.password && (
-                                        <p className="mt-1 text-sm text-red-600 dark:text-red-400 flex items-center gap-1">
+                                        <p className="mt-1 text-sm text-red-600 flex items-center gap-1">
                                             <AlertCircle className="w-3 h-3" />
                                             {errors.password.message}
                                         </p>
@@ -340,7 +391,7 @@ export default function EnterpriseLoginForm() {
                                         className={cn(
                                             "text-sm font-medium transition-colors",
                                             "text-orange-600 hover:text-orange-500",
-                                            "dark:text-orange-400 dark:hover:text-orange-300"
+
                                         )}
                                     >
                                         Forgot Password?
@@ -361,8 +412,8 @@ export default function EnterpriseLoginForm() {
                                     }}
                                     className={cn(
                                         "w-full px-6 py-3 hover:cursor-pointer text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 relative overflow-hidden group",
-                                        "bg-gradient-to-r from-orange-600 to-red-600",
-                                        "dark:from-orange-700 dark:to-red-700"
+                                        "bg-gradient-to-r from-green-700 to-blue-600",
+
                                     )}
                                 >
                                     {/* Ripple effect on click */}
@@ -400,17 +451,15 @@ export default function EnterpriseLoginForm() {
                         <div className={cn(
                             "px-8 py-6 border-t",
                             "bg-gradient-to-r from-orange-50/50 to-red-50/50 border-orange-100",
-                            "dark:bg-gradient-to-r dark:from-gray-900/50 dark:to-gray-800/50 dark:border-gray-800"
                         )}>
                             <p className={cn(
                                 "text-center",
                                 "text-gray-600",
-                                "dark:text-gray-400"
                             )}>
                                 Don&apos;t have a business account?{' '}
                                 <Link
                                     href="/enterprise/register"
-                                    className="font-medium text-orange-600 hover:text-orange-500 dark:text-orange-400 dark:hover:text-orange-300 transition-colors"
+                                    className="font-medium text-orange-600 hover:text-orange-500 transition-colors"
                                 >
                                     Register your company
                                 </Link>
@@ -423,7 +472,6 @@ export default function EnterpriseLoginForm() {
                         <p className={cn(
                             "text-xs flex items-center justify-center gap-1",
                             "text-gray-500",
-                            "dark:text-gray-400"
                         )}>
                             <Shield className="w-3 h-3" />
                             Your data is protected with 256-bit SSL encryption
@@ -435,25 +483,25 @@ export default function EnterpriseLoginForm() {
             {/* Pending Account Modal (No Payment) */}
             <AnimatePresence>
                 {showPendingModal && pendingAccountInfo && (
-                    <div className="fixed inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+                    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.9 }}
                             transition={{ duration: 0.2 }}
-                            className="max-w-lg w-full rounded-2xl shadow-2xl flex flex-col max-h-[80vh] dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 dark:border-orange-800/50 bg-white border border-orange-200"
+                            className="max-w-lg w-full rounded-2xl shadow-2xl flex flex-col max-h-[80vh]  bg-white border border-orange-200"
                         >
                             {/* Modal Header */}
-                            <div className="p-6 border-b rounded-t-2xl dark:border-gray-700 dark:bg-gradient-to-r dark:from-gray-800 dark:to-gray-900 border-orange-200 bg-gradient-to-r from-orange-50 to-white">
+                            <div className="p-6 border-b rounded-t-2xl  border-orange-200 bg-gradient-to-r from-orange-50 to-white">
                                 <div className="flex items-center gap-4">
-                                    <div className="p-3 rounded-full dark:bg-orange-500/20 dark:ring-2 dark:ring-orange-500/30 bg-orange-100 ring-2 ring-orange-200">
-                                        <AlertCircle className="w-6 h-6 dark:text-orange-400 text-orange-600" />
+                                    <div className="p-3 rounded-full ring-orange-200">
+                                        <AlertCircle className="w-6 h-6 text-orange-600" />
                                     </div>
                                     <div className="flex-1">
-                                        <h3 className="text-xl font-bold dark:text-white text-gray-900">
+                                        <h3 className="text-xl font-bold text-gray-900">
                                             Account Pending Approval
                                         </h3>
-                                        <p className="text-sm dark:text-gray-400 text-gray-600">
+                                        <p className="text-sm text-gray-600">
                                             Your account is awaiting admin approval
                                         </p>
                                     </div>
@@ -462,7 +510,7 @@ export default function EnterpriseLoginForm() {
                                             setShowPendingModal(false);
                                             setPendingAccountInfo(null);
                                         }}
-                                        className="p-2 rounded-full transition-colors dark:hover:bg-gray-700 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 text-gray-500 hover:text-gray-700"
+                                        className="p-2 rounded-full transition-colors hover:bg-gray-100 text-gray-500 hover:text-gray-700"
                                     >
                                         <X className="w-5 h-5" />
                                     </button>
@@ -473,10 +521,10 @@ export default function EnterpriseLoginForm() {
                             <div className="p-6 overflow-y-auto custom-scrollbar">
                                 <div className="space-y-6">
                                     {/* Welcome Message with Company Info */}
-                                    <div className="p-5 rounded-xl relative overflow-hidden dark:bg-gradient-to-br dark:from-orange-900/30 dark:to-red-900/30 dark:border dark:border-orange-800/50 bg-gradient-to-br from-orange-50 to-red-50 border border-orange-100">
+                                    <div className="p-5 rounded-xl relative overflow-hidden bg-gradient-to-br from-orange-50 to-red-50 border border-orange-100">
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-500/10 to-red-500/10 rounded-full -mr-10 -mt-10" />
-                                        <p className="text-sm relative z-10 dark:text-gray-200 text-gray-700">
-                                            <span className="font-semibold text-orange-600 dark:text-orange-400">
+                                        <p className="text-sm relative z-10 text-gray-700">
+                                            <span className="font-semibold text-orange-600 ">
                                                 {pendingAccountInfo.companyName}
                                             </span>
                                             , your business account is currently pending approval. You will be able to login once an administrator approves your account.
@@ -485,42 +533,42 @@ export default function EnterpriseLoginForm() {
 
                                     {/* Account Details */}
                                     <div className="space-y-3">
-                                        <h4 className="text-base font-semibold flex items-center gap-2 dark:text-white text-gray-900">
-                                            <span className="w-1 h-5 rounded-full dark:bg-orange-500 bg-orange-600" />
+                                        <h4 className="text-base font-semibold flex items-center gap-2 text-gray-900">
+                                            <span className="w-1 h-5 rounded-full bg-orange-600" />
                                             Account Information
                                         </h4>
 
-                                        <div className="p-5 rounded-xl border dark:bg-gray-800/50 dark:border-gray-700 bg-white border-gray-200 shadow-sm">
+                                        <div className="p-5 rounded-xl border bg-white border-gray-200 shadow-sm">
                                             <div className="space-y-3">
-                                                <div className="flex justify-between items-center pb-2 border-b border-dashed dark:border-gray-700 border-gray-200">
-                                                    <span className="text-sm font-medium dark:text-gray-400 text-gray-500">
+                                                <div className="flex justify-between items-center pb-2 border-b border-dashed border-gray-200">
+                                                    <span className="text-sm font-medium text-gray-500">
                                                         Company Name
                                                     </span>
-                                                    <span className="text-sm font-semibold dark:text-white text-gray-900">
+                                                    <span className="text-sm font-semibold text-gray-900">
                                                         {pendingAccountInfo.companyName}
                                                     </span>
                                                 </div>
-                                                <div className="flex justify-between items-center pb-2 border-b border-dashed dark:border-gray-700 border-gray-200">
-                                                    <span className="text-sm font-medium dark:text-gray-400 text-gray-500">
+                                                <div className="flex justify-between items-center pb-2 border-b border-dashed  border-gray-200">
+                                                    <span className="text-sm font-medium text-gray-500">
                                                         Phone Number
                                                     </span>
-                                                    <span className="text-sm font-semibold dark:text-white text-gray-900">
+                                                    <span className="text-sm font-semibold  text-gray-900">
                                                         {pendingAccountInfo.phoneNo}
                                                     </span>
                                                 </div>
-                                                <div className="flex justify-between items-center pb-2 border-b border-dashed dark:border-gray-700 border-gray-200">
-                                                    <span className="text-sm font-medium dark:text-gray-400 text-gray-500">
+                                                <div className="flex justify-between items-center pb-2 border-b border-dashed  border-gray-200">
+                                                    <span className="text-sm font-medium  text-gray-500">
                                                         Email
                                                     </span>
-                                                    <span className="text-sm font-semibold dark:text-white text-gray-900">
+                                                    <span className="text-sm font-semibold  text-gray-900">
                                                         {pendingAccountInfo.email}
                                                     </span>
                                                 </div>
                                                 <div className="flex justify-between items-center">
-                                                    <span className="text-sm font-medium dark:text-gray-400 text-gray-500">
+                                                    <span className="text-sm font-medium  text-gray-500">
                                                         Status
                                                     </span>
-                                                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400 border border-orange-200 dark:border-orange-800">
+                                                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-orange-100 text-orange-700  border-orange-200 ">
                                                         {pendingAccountInfo.status}
                                                     </span>
                                                 </div>
@@ -529,12 +577,12 @@ export default function EnterpriseLoginForm() {
                                     </div>
 
                                     {/* What happens next */}
-                                    <div className="p-5 rounded-xl text-center relative overflow-hidden dark:bg-gradient-to-br dark:from-orange-600/20 dark:via-amber-600/20 dark:to-red-600/20 dark:border dark:border-orange-500/30 bg-gradient-to-br from-orange-100 via-amber-100 to-red-100 border border-orange-200">
+                                    <div className="p-5 rounded-xl text-center relative overflow-hidden bg-gradient-to-br from-orange-100 via-amber-100 to-red-100 border border-orange-200">
                                         <div className="absolute inset-0 bg-grid-white/10 [mask-image:radial-gradient(ellipse_at_center,white,transparent)]" />
-                                        <p className="text-sm font-medium mb-2 relative z-10 dark:text-gray-300 text-gray-600">
+                                        <p className="text-sm font-medium mb-2 relative z-10 text-gray-600">
                                             What happens next?
                                         </p>
-                                        <div className="relative z-10 space-y-2 text-sm dark:text-gray-400 text-gray-500">
+                                        <div className="relative z-10 space-y-2 text-sm text-gray-500">
                                             <p>• An administrator will review your business information</p>
                                             <p>• You&apos;ll receive an email once your account is approved</p>
                                             <p>• After approval, you can login with your credentials</p>
@@ -544,13 +592,13 @@ export default function EnterpriseLoginForm() {
                             </div>
 
                             {/* Modal Footer */}
-                            <div className="p-6 border-t rounded-b-2xl dark:border-gray-700 dark:bg-gradient-to-r dark:from-gray-800 dark:to-gray-900 border-orange-200 bg-gradient-to-r from-orange-50 to-white">
+                            <div className="p-6 border-t rounded-b-2xl border-orange-200 bg-gradient-to-r from-orange-50 to-white">
                                 <button
                                     onClick={() => {
                                         setShowPendingModal(false);
                                         setPendingAccountInfo(null);
                                     }}
-                                    className="w-full hover:cursor-pointer px-4 py-3 rounded-xl font-medium transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:border dark:border-gray-600 bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200"
+                                    className="w-full hover:cursor-pointer px-4 py-3 rounded-xl font-medium transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200"
                                 >
                                     Got it
                                 </button>
@@ -593,6 +641,12 @@ export default function EnterpriseLoginForm() {
                 }
                 .animation-delay-4000 {
                     animation-delay: 4s;
+                }
+                @keyframes float {
+                    0%, 100% { transform: translateY(0px) translateX(0px); }
+                    25% { transform: translateY(-20px) translateX(10px); }
+                    50% { transform: translateY(10px) translateX(-15px); }
+                    75% { transform: translateY(-10px) translateX(15px); }
                 }
             `}</style>
         </>

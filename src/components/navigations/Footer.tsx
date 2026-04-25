@@ -1,15 +1,12 @@
-// components/Footer.tsx
 import {
-  FaTelegramPlane,
-  FaWhatsapp,
-  FaInstagram,
+  FaLinkedinIn,
   FaFacebookF,
-  FaPhone,
-  FaSms
+  FaTwitter,
+  FaGlobe,
+  FaCheckCircle
 } from 'react-icons/fa';
 import { MdLocationOn, MdEmail } from 'react-icons/md';
 import Image from 'next/image';
-// import siteLogo from "@/assets/Icons/Site-icon.png";
 import siteLogo from '../../../public/The_Logo/linuxeon_logo.png';
 import Paragraph from '../reusable-components/Paragraph';
 import Heading from '../reusable-components/Heading';
@@ -17,101 +14,82 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className='bg-black text-gray-700 border-t border-gray-300 pt-8 md:pt-10'>
-      <div className='container mx-auto px-4 sm:px-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-8'>
+    <footer className='bg-gray-100 text-gray-900 pt-10 border-t border-gray-200'>
+      {/* Main Grid */}
+      <div className='container mx-auto px-4 sm:px-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8'>
         {/* Logo & Info */}
         <div className='col-span-2'>
-          <div className='flex gap-x-[29px] mb-3 md:mb-4'>
-            <Image
-              src={siteLogo}
-              alt='SMS Platform'
-              width={160}
-              height={60}
-              className='w-36 h-auto object-contain'
-            />
-          </div>
+          <Image
+            src={siteLogo}
+            alt='Accreditation Body'
+            width={800}
+            height={600}
+            className='mb-4 w-44 h-28'
+          />
 
-          <div className='flex items-start gap-2 mb-2 md:mb-3'>
-            <MdLocationOn className='text-[#1776BB] text-lg md:text-xl mt-0.5 flex-shrink-0' />
-            <Paragraph className='text-xs md:text-sm'>
-              Global SMS Service Provider - Connecting Businesses Worldwide
-            </Paragraph>
-          </div>
-
-          <div className='flex items-center gap-2 mb-4 md:mb-2'>
-            <FaPhone className='text-[#1776BB] rotate-90 flex-shrink-0' />
-            <Paragraph className='text-xs md:text-sm'>
-              +880 1601-590591 (Sales)
-            </Paragraph>
-          </div>
-          <div className='flex items-center gap-2 mb-4 md:mb-2'>
-            <FaPhone className='text-[#1776BB] rotate-90 flex-shrink-0' />
-            <Paragraph className='text-xs md:text-sm'>
-              +880 1601-590592 (Support)
-            </Paragraph>
-          </div>
-          <div className='flex items-center gap-2 mb-4 md:mb-0'>
-            <MdEmail className='text-[#1776BB] text-lg md:text-xl flex-shrink-0' />
-            <Paragraph className='text-xs md:text-sm'>
-              support@smsplatform.com
+          <div className='flex items-start gap-2 mb-3'>
+            <MdLocationOn className='text-blue-400 mt-1' />
+            <Paragraph className='text-sm'>
+              International Accreditation & Certification Body ensuring global
+              compliance and standards.
             </Paragraph>
           </div>
 
-          {/* Social Icons */}
-          <div className='flex gap-2 md:gap-3 mt-4 md:mt-6'>
-            <Link
-              href='#'
-              className='bg-[#1776BB] hover:bg-[#0f5ed1] duration-200 text-white p-2 md:p-3 rounded-full text-sm md:text-base'
-            >
-              <FaTelegramPlane />
-            </Link>
-            <Link
-              href='#'
-              className='bg-[#1776BB] hover:bg-[#0f5ed1] duration-200 text-white p-2 md:p-3 rounded-full text-sm md:text-base'
-            >
-              <FaWhatsapp />
-            </Link>
-            <Link
-              href='#'
-              className='bg-[#1776BB] hover:bg-[#0f5ed1] duration-200 text-white p-2 md:p-3 rounded-full text-sm md:text-base'
-            >
-              <FaInstagram />
-            </Link>
-            <Link
-              href='#'
-              className='bg-[#1776BB] hover:bg-[#0f5ed1] duration-200 text-white p-2 md:p-3 rounded-full text-sm md:text-base'
-            >
-              <FaFacebookF />
-            </Link>
-            <Link
-              href='#'
-              className='bg-[#1776BB] hover:bg-[#0f5ed1] duration-200 text-white p-2 md:p-3 rounded-full text-sm md:text-base'
-            >
-              <FaSms />
-            </Link>
+          <div className='flex items-center gap-2 mb-2'>
+            <MdEmail className='text-blue-400' />
+            <Paragraph className='text-sm'>support@accreditation.org</Paragraph>
+          </div>
+
+          {/* Social */}
+          <div className='flex gap-3 mt-5'>
+            {[FaLinkedinIn, FaFacebookF, FaTwitter, FaGlobe].map((Icon, i) => (
+              <Link
+                key={i}
+                href='#'
+                className='bg-blue-600 hover:bg-blue-500 p-2 rounded-full text-white transition'
+              >
+                <Icon />
+              </Link>
+            ))}
           </div>
         </div>
 
-        {/* SMS Solutions */}
+        {/* Accreditation Services */}
         <div>
-          <Heading className='font-bold mb-2 md:mb-4 text-sm md:text-base flex items-center gap-2'>
-            <FaSms className='text-[#1776BB]' /> SMS Solutions
-          </Heading>
-          <ul className='space-y-1 md:space-y-2 text-xs md:text-sm'>
+          <div className='text-xl font-semibold mb-4 text-gray-900'>
+            Accreditation Services
+          </div>
+          <ul className='space-y-2 text-sm'>
             {[
-              'Bulk SMS Services',
-              'Transactional SMS',
-              'SMS API Integration',
-              'Two-Way Messaging',
-              'SMS Marketing',
-              'SMS Gateway',
-              'Short Code Services',
-              'Voice SMS'
+              'Initial Accreditation',
+              'Surveillance Audit',
+              'Re-Accreditation',
+              'Scope Extension',
+              'Remote Assessment',
+              'Witness Assessment'
             ].map((item, index) => (
-              <li
-                key={index}
-                className='hover:text-blue-500 cursor-pointer transition-colors duration-200'
-              >
+              <li key={index} className='hover:text-blue-500 cursor-pointer'>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Certification Standards */}
+        <div>
+          <div className='text-xl font-semibold mb-4 text-gray-900'>
+            Standards We Cover
+          </div>
+          <ul className='space-y-2 text-sm'>
+            {[
+              'ISO 9001 (Quality)',
+              'ISO 14001 (Environment)',
+              'ISO 45001 (OH&S)',
+              'ISO 22000 (Food Safety)',
+              'ISO 27001 (Information Security)',
+              'ISO 17025 (Laboratories)'
+            ].map((item, index) => (
+              <li key={index} className='hover:text-blue-500 cursor-pointer'>
                 {item}
               </li>
             ))}
@@ -120,50 +98,19 @@ export default function Footer() {
 
         {/* Quick Links */}
         <div>
-          <Heading className='font-bold mb-2 md:mb-4 text-sm md:text-base'>
+          <div className='text-xl font-semibold mb-4 text-gray-900'>
             Quick Links
-          </Heading>
-          <ul className='space-y-1 md:space-y-2 text-xs md:text-sm'>
+          </div>
+          <ul className='space-y-2 text-sm'>
             {[
-              'Dashboard Login',
-              'Pricing & Plans',
-              'API Documentation',
-              'SMS Features',
-              'Coverage Map',
-              'Success Stories',
-              'SMS Templates',
-              'Contact Support'
+              'About Us',
+              'Verify Certificate',
+              'Apply for Accreditation',
+              'Accredited Bodies',
+              'News & Updates',
+              'Contact'
             ].map((item, index) => (
-              <li
-                key={index}
-                className='hover:text-blue-500 cursor-pointer transition-colors duration-200'
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Industries Served */}
-        <div className='col-span-2 sm:col-span-1'>
-          <Heading className='font-bold mb-2 md:mb-4 text-sm md:text-base'>
-            Industries Served
-          </Heading>
-          <ul className='space-y-1 md:space-y-2 text-xs md:text-sm grid grid-cols-1'>
-            {[
-              'E-commerce & Retail',
-              'Banking & Finance',
-              'Healthcare',
-              'Education',
-              'Logistics',
-              'Real Estate',
-              'Hospitality',
-              'Government'
-            ].map((item, index) => (
-              <li
-                key={index}
-                className='hover:text-blue-500 cursor-pointer transition-colors duration-200'
-              >
+              <li key={index} className='hover:text-blue-500 cursor-pointer'>
                 {item}
               </li>
             ))}
@@ -171,26 +118,27 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Newsletter Subscription */}
-      <div className='container mx-auto mt-8 md:mt-12 px-4 sm:px-6'>
-        <div className='bg-gradient-to-r from-blue-50 to-blue-100  rounded-lg p-6 md:p-8'>
-          <div className='flex flex-col md:flex-row items-center justify-between gap-4'>
+      {/* Newsletter */}
+      <div className='container mx-auto mt-12 px-4 sm:px-6'>
+        <div className='bg-gradient-to-r from-green-700 to-blue-600 rounded-xl p-6 md:p-8'>
+          <div className='flex flex-col md:flex-row justify-between items-center gap-4'>
             <div>
-              <Heading className='text-lg md:text-xl font-bold mb-2'>
-                Stay Updated with SMS Trends
+              <Heading className='text-xl text-white mb-2'>
+                Stay Updated
               </Heading>
-              <Paragraph className='text-sm md:text-base'>
-                Subscribe to our newsletter for SMS marketing tips, platform
-                updates, and industry insights.
+              <Paragraph className='text-sm text-gray-200'>
+                Get latest accreditation updates, standards, and compliance
+                news.
               </Paragraph>
             </div>
+
             <div className='flex gap-2 w-full md:w-auto'>
               <input
                 type='email'
                 placeholder='Enter your email'
-                className='px-4 py-2 rounded-lg border border-gray-300 flex-grow md:w-64 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                className='px-4 py-2 rounded-lg w-full md:w-64 text-white placeholder:text-gray-300 border border-gray-100'
               />
-              <button className='bg-[#1776BB] hover:bg-[#0f5ed1] text-white px-4 md:px-6 py-2 rounded-lg font-medium transition-colors duration-200'>
+              <button className='bg-white text-blue-700 px-5 py-2 rounded-lg font-medium hover:bg-gray-200 cursor-pointer'>
                 Subscribe
               </button>
             </div>
@@ -199,37 +147,43 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className='container mx-auto mt-8 md:mt-10 border-t border-gray-400 flex flex-col md:flex-row justify-between items-center py-4 px-4 sm:px-6'>
-        <Paragraph className='flex items-center gap-1 mb-2 md:mb-0 text-[14px] '>
-          © {new Date().getFullYear()} SMS Platform. All Rights Reserved.
+      <div className='container mx-auto mt-10 border-t border-gray-400 py-5 px-4 sm:px-6 flex flex-col md:flex-row justify-between items-center gap-3'>
+        <Paragraph className='text-sm'>
+          © {new Date().getFullYear()} Accreditation Body. All rights reserved.
         </Paragraph>
-        <div className='flex flex-wrap items-center gap-2 md:gap-4 text-[14px]'>
-          <span className='text-green-600 flex items-center gap-1'>
-            <FaSms /> 99.9% Delivery Rate
+
+        <div className='flex flex-wrap items-center gap-3 text-sm'>
+          <span className='flex items-center gap-1 text-green-500'>
+            <FaCheckCircle /> Trusted & Verified
           </span>
+
           <span>|</span>
-          <Link
-            href='/privacy-policy'
-            className='hover:text-blue-500 cursor-pointer transition-colors duration-200'
-          >
-            PRIVACY POLICY
+
+          <Link href='/privacy-policy' className='hover:text-blue-400'>
+            Privacy Policy
           </Link>
+
           <span>|</span>
-          <Link
-            href='/terms-of-service'
-            className='hover:text-blue-500 cursor-pointer transition-colors duration-200'
-          >
-            TERMS OF SERVICE
+
+          <Link href='/terms' className='hover:text-blue-400'>
+            Terms of Service
           </Link>
+
           <span>|</span>
-          <Link
-            href='/gdpr-compliance'
-            className='hover:text-blue-500 cursor-pointer transition-colors duration-200'
-          >
-            GDPR COMPLIANCE
+
+          <Link href='/accessibility' className='hover:text-blue-400'>
+            Accessibility
+          </Link>
+
+          <span>|</span>
+
+          <Link href='/cookie-policy' className='hover:text-blue-400'>
+            Cookie Policy
           </Link>
         </div>
       </div>
     </footer>
   );
 }
+
+

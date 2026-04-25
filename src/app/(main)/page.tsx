@@ -2,13 +2,15 @@ import AccreditationBodiesCarousel from '@/components/home/AccreditationBodiesCa
 import AccreditationServices from '@/components/home/AccreditationServices';
 import Banner from '@/components/home/Banner';
 import CertificateVerifyWidget from '@/components/home/CertificateVerifyWidget';
+import NewsFeed from '@/components/home/NewsFeed';
 import StandardsWeCover from '@/components/home/StandardsWeCover';
 import StatsBar from '@/components/home/StatsBar';
+import TrustSignals from '@/components/home/TrustSignals';
 import { generateDynamicMetadata } from '@/metadata/generateMetadata';
 
 export async function generateMetadata() {
   return generateDynamicMetadata({
-    title: 'Accredpro | Home',
+    title: 'ISAB | Home',
     description:
       'Linuxeon is a cutting-edge SMS and bulk messaging platform that enables businesses to send transactional, promotional, and OTP messages globally. Reliable, scalable, and feature-rich messaging solutions.',
     keywords: [
@@ -44,6 +46,8 @@ export default function Home() {
       <AccreditationBodiesCarousel />
       <AccreditationServices />
       <StandardsWeCover />
+      <NewsFeed />
+      <TrustSignals />
     </div>
   );
 }

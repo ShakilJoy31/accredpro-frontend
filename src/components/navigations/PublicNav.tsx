@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import navbarLogo from '../../../public/The_Logo/linuxeon_logo.png';
 import { Button } from '@/components/ui/button';
-import { Menu, MessageSquare, Users, X } from 'lucide-react';
+import { Compass, Menu, MessageSquare, Users, X } from 'lucide-react';
 import LanguageSwitcher from '../reusable-components/LanguageSwitcher';
 import { getUserInfo } from '@/utils/helper/userFromToken';
 import { useGetClientByIdQuery } from '@/redux/api/authentication/authApi';
@@ -19,8 +19,13 @@ const navLinks = [
   },
   {
     name: 'About',
-    path: '/about_us',
+    path: '/about',
     icon: <Users className='w-4 h-4' />
+  },
+  {
+    name: 'Standards',
+    path: '/standards',
+    icon: <Compass className='w-4 h-4' />
   },
   {
     name: 'Services',
