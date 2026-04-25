@@ -22,9 +22,9 @@ export default function Footer() {
           <Image
             src={siteLogo}
             alt='Accreditation Body'
-            width={160}
-            height={60}
-            className='mb-4'
+            width={800}
+            height={600}
+            className='mb-4 w-44 h-28'
           />
 
           <div className='flex items-start gap-2 mb-3'>
@@ -136,7 +136,7 @@ export default function Footer() {
               <input
                 type='email'
                 placeholder='Enter your email'
-                className='px-4 py-2 rounded-lg w-full md:w-64 text-black placeholder:text-gray-300 border border-gray-100'
+                className='px-4 py-2 rounded-lg w-full md:w-64 text-white placeholder:text-gray-300 border border-gray-100'
               />
               <button className='bg-white text-blue-700 px-5 py-2 rounded-lg font-medium hover:bg-gray-200 cursor-pointer'>
                 Subscribe
@@ -185,3 +185,5 @@ export default function Footer() {
     </footer>
   );
 }
+
+

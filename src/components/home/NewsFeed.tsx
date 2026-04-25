@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 type NewsItem = {
   id: number;
   title: string;
@@ -65,9 +67,12 @@ export default function NewsFeed() {
               </p>
 
               {/* Read More */}
-              <button className='mt-4 text-blue-600 text-sm font-medium hover:underline text-left cursor-pointer w-fit'>
+              <Link
+                href={`/news/${item.id}`}
+                className='mt-4 text-blue-600 text-sm font-medium hover:underline text-left cursor-pointer w-fit'
+              >
                 Read More →
-              </button>
+              </Link>
             </div>
           </div>
         ))}
