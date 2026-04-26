@@ -33,12 +33,15 @@ const newsData: NewsItem[] = [
   }
 ];
 
-export default function NewsDetailsPage({
+// For Next.js 15, params is a Promise that needs to be awaited
+export default async function NewsDetailsPage({
   params
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const news = newsData.find((item) => item.id === Number(params.id));
+  // Await the params to get the actual values
+  const { id } = await params;
+  const news = newsData.find((item) => item.id === Number(id));
 
   if (!news) {
     notFound();
