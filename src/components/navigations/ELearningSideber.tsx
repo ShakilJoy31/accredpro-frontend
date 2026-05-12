@@ -206,26 +206,8 @@ const enterpriseMenuItems = [
       {
         key: "all-students",
         icon: <Users size={16} />,
-        label: "All Students",
-        href: "/admin/students",
-      },
-      {
-        key: "student-enrollments",
-        icon: <UserCheck size={16} />,
-        label: "Enrollments",
-        href: "/admin/students/enrollments",
-      },
-      {
-        key: "student-progress",
-        icon: <TrendingUp size={16} />,
-        label: "Progress Tracking",
-        href: "/admin/students/progress",
-      },
-      {
-        key: "student-payments",
-        icon: <CreditCard size={16} />,
-        label: "Payments",
-        href: "/admin/students/payments",
+        label: "Student Document",
+        href: "/admin/students/document",
       },
     ],
   },

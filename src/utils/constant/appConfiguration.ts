@@ -17,8 +17,8 @@ const version = "V1.0.0";
 export const appConfiguration: IConfigurationProps = {
   appName: "Tech element",
   appCode: "__t_beta__",
-  // baseUrl: "http://localhost:2000",
-  baseUrl: "https://server-moody.linuxeon.com",
+  baseUrl: "http://localhost:2000",
+  // baseUrl: "https://server-moody.linuxeon.com",
   databaseResetAPI:
     "null",
   favicon: "/iconic.png",
