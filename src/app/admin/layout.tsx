@@ -86,7 +86,7 @@ export default function MainLayout({
         )}
 
         {/* Content */}
-        <div className="px-2 md:px-3 lg:px-4">
+        <div>
           {children}
         </div>
       </section>

@@ -16,7 +16,7 @@ export const authApi = apiSlice.injectEndpoints({
     // New enterprise login with phone number
     enterpriseLogin: builder.mutation({
       query: (credentials: { phoneNo: string; password: string }) => ({
-        url: "/authentication/login-super-admin",
+        url: "/isab-authentication/login-super-admin",
         method: "POST",
         body: credentials,
       }),
@@ -210,7 +210,7 @@ export const authApi = apiSlice.injectEndpoints({
     // Get pending enterprise for activation
     getPendingEnterpriseForActivationById: builder.query({
       query: (id: string) => ({
-        url: `/authentication/get-pending-enterprise-for-activation/${id}`,
+        url: `/isab-authentication/get-pending-enterprise-for-activation/${id}`,
         method: "GET",
       }),
       providesTags: (result, error, id) => [{ type: 'Enterprise', id }],
@@ -227,7 +227,7 @@ export const authApi = apiSlice.injectEndpoints({
     // Delete enterprise
     deleteEnterprise: builder.mutation({
       query: (id: number) => ({
-        url: `/authentication/delete-enterprise/${id}`,
+        url: `/isab-authentication/delete-enterprise/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: [{ type: 'Enterprise', id: 'LIST' }],
@@ -248,7 +248,7 @@ export const authApi = apiSlice.injectEndpoints({
     // Update enterprise status
     updateEnterpriseStatus: builder.mutation({
       query: ({ id, status }: { id: number; status: 'active' | 'pending' | 'inactive' }) => ({
-        url: `/authentication/update-enterprise-status/${id}`,
+        url: `/isab-authentication/update-enterprise-status/${id}`,
         method: 'PUT',
         body: { status },
       }),
@@ -279,7 +279,7 @@ export const authApi = apiSlice.injectEndpoints({
         newPassword: string;
         confirmNewPassword: string;
       }) => ({
-        url: `/authentication/change-enterprise-password/${id}`,
+        url: `/isab-authentication/change-enterprise-password/${id}`,
         method: 'PUT',
         body: { currentPassword, newPassword, confirmNewPassword },
       }),
@@ -288,7 +288,7 @@ export const authApi = apiSlice.injectEndpoints({
     // Get enterprise statistics
     getEnterpriseStats: builder.query({
       query: () => ({
-        url: '/authentication/get-enterprise-stats',
+        url: '/isab-authentication/get-enterprise-stats',
         method: 'GET',
       }),
       providesTags: ['Enterprise'],

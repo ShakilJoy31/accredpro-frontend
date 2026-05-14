@@ -22,6 +22,7 @@ export const apiSlice = createApi({
   baseQuery,
   tagTypes: [
     "Certificate",
+    "StudentDocument",
 
 
 

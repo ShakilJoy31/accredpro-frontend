@@ -46,9 +46,9 @@ export const certificateApi = apiSlice.injectEndpoints({
       providesTags: (result) => {
         return result?.data
           ? [
-              ...result.data.map(({ id }: { id: string }) => ({ type: 'Certificate' as const, id })),
-              { type: 'Certificate', id: 'LIST' },
-            ]
+            ...result.data.map(({ id }: { id: string }) => ({ type: 'Certificate' as const, id })),
+            { type: 'Certificate', id: 'LIST' },
+          ]
           : [{ type: 'Certificate', id: 'LIST' }];
       },
     }),
@@ -80,7 +80,7 @@ export const certificateApi = apiSlice.injectEndpoints({
 
     // Update certificate
     updateCertificate: builder.mutation({
-      query: ({ id, ...data }: { id: number; [key: string]: unknown }) => ({
+      query: ({ id, ...data }: { id: number;[key: string]: unknown }) => ({
         url: `/certificate/update-certificate/${id}`,
         method: "PUT",
         body: data,
